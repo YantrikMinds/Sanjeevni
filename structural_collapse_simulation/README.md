@@ -12,9 +12,8 @@ Blender 5.1 pipeline for the Sanjeevni demo shot: a 5-building street collapses 
 | `blender/stage4_5_finish.py` | Dust volume, camera path, rover path, floodlights, red/blue strobes |
 | `blender/add_town.py`, `add_rover.py` | Four extra hero-type buildings, RIIS rover import |
 | `blender/build_final.py` | Headless full rebuild of everything |
-| `blender/render.py`, `render_stills.py` | Cycles/OptiX frame and still rendering |
+| `blender/render.py` | Cycles/OptiX frame and still rendering |
 | `assets/riis_rover_full_build.glb` | Rover model |
-| `renders/` | 1080p stills: intact building, rubble with surviving core |
 
 ## Physics
 - Blender Rigid Body World (Bullet), convex-hull chunks, concrete 2400 kg/m3, restitution 0, friction 0.85.
