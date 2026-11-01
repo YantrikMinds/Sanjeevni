@@ -61,6 +61,16 @@ Sanjeevni/
 ├── rover.html                 # Mobile-first smart rover client (phone sensors + camera)
 ├── server.py                  # Dual-protocol HTTP/HTTPS tactical gateway & tele-op bridge
 ├── dynamic_routing_map.html   # Sector hazard map & survivor location routing
+├── routing_dashboard/         # Disaster-Aware Routing & Emergency Hospital Gateway (Live GPS + OSRM)
+│   ├── index.html             # Interactive SPA Dashboard & Leaflet Map
+│   ├── styles.css             # Responsive Mission UI & Telemetry Cards
+│   ├── app.js                 # Frontend Controller & Route State Manager
+│   ├── api.js                 # Live GPS/IP, OSRM Routing, USGS Earthquakes, Weather Feeds
+│   ├── config.js              # Endpoint and Preset Configs
+│   ├── server.js              # High-performance Node.js Proxy & Detour Engine
+│   ├── package.json           # Node project descriptor
+│   ├── lib/                   # Real-road avoidance (avoid.js, geo.js) & IBM Db2 (db2.js)
+│   └── scripts/               # Db2 SQL schemas & mission audit queries
 ├── 3d_collapse_simulation.html# Three.js 3D structural collapse simulation
 ├── static/                    # MoveNet / TensorFlow.js offline models & assets
 ├── hardware_pcb/              # Hardware engineering files & Schematics
@@ -91,7 +101,15 @@ python3 server.py
 * **War Room Dashboard:** Open `http://localhost:8080/` in your browser.
 * **Phone Rover Client:** Scan QR or navigate to `https://<YOUR-IP>:8443/rover` on any smartphone.
 
-### 2. Tele-Operation Controls
+### 2. Launch Disaster-Aware Routing & Emergency Hospital Gateway
+`ash
+cd routing_dashboard
+node server.js
+`
+* **Routing Dashboard:** Open http://localhost:3000/ in your browser.
+* Features real-time GPS detection, custom destination search, turn-by-turn driving directions, real road avoidance around hazard blocks, and IBM Db2 audit logging.
+
+### 3. Tele-Operation Controls
 * **[W] / [↑]**: Forward Crawl
 * **[S]** / **[↓]**: Reverse
 * **[A]** / **[←]**: Pivot Left

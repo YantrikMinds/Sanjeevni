@@ -1,0 +1,19 @@
+{
+  "name": "sanjeevni-disaster-routing-dashboard",
+  "version": "2.5.0",
+  "description": "Sanjeevni Disaster-Aware Routing & Emergency Hospital Gateway with Live GPS, Real Road Avoidance, and IBM Db2 Telemetry",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "disaster-management",
+    "emergency-routing",
+    "ibm-db2",
+    "osrm",
+    "leaflet",
+    "usar"
+  ],
+  "author": "Aanya Pathak <pathakaanya12@gmail.com>",
+  "license": "MIT"
+}
