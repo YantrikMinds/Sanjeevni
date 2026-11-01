@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANJEEVNI - TinyFish Dynamic A* Routing Engine</title>
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        body {
+            background-color: #060b13;
+            color: #d1e4ff;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #map {
+            flex: 1;
+            height: 100vh;
+        }
+        #sidebar {
+            width: 380px;
+            background: #0b1524;
+            border-left: 2px solid #1a2d47;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 1000;
+        }
+        h2 {
+            font-size: 15px;
+            color: #00ffcc;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #1a2d47;
+            padding-bottom: 8px;
+        }
+        .card {
+            background: #060c16;
+            border: 1px solid #182e4b;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .card-title {
+            font-size: 11px;
+            color: #8da4c4;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+        .hosp-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid #0f1c2d;
+            font-size: 11px;
+        }
+        .badge {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .badge-full {
+            background: rgba(255, 51, 102, 0.2);
+            color: #ff3366;
+            border: 1px solid #ff3366;
+        }
+        .badge-open {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+            border: 1px solid #00ff88;
+        }
+        button {
+            background: #112240;
+            color: #00ffcc;
+            border: 1px solid #00ffcc;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: #00ffcc;
+            color: #000;
+        }
+        .btn-hazard {
+            background: #ff3366;
+            color: #fff;
+            border-color: #ff3366;
+        }
+        .btn-hazard:hover {
+            background: #e60039;
+        }
+        .alert-box {
+            background: #14070a;
+            border: 1px solid #ff3366;
+            padding: 8px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #ff6b8b;
+            line-height: 1.4;
+            display: none;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 11px;
+        }
+        .stat-card {
+            background: #08111d;
+            border: 1px solid #142842;
+            padding: 6px 8px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <div id="sidebar">
+        <h2>TINYFISH DYNAMIC A* ROUTER</h2>
+        <div style="font-size: 11px; color:#6886aa;">Module: Aanya Pathak (Windows Laptop 2)</div>
+
+        <!-- Live Hospital Bed Scraping Card -->
+        <div class="card">
+            <div class="card-title">LIVE HOSPITAL ICU DASHBOARD (TINYFISH FETCH API)</div>
+            <div class="hosp-item">
+                <span>District Civil Hospital</span>
+                <span class="badge badge-full">ICU: 0 (SURGE FULL)</span>
+            </div>
+            <div class="hosp-item">
+                <span>AIIMS Regional Trauma</span>
+                <span class="badge badge-open">ICU: 18 (AVAILABLE)</span>
+            </div>
+            <div class="hosp-item">
+                <span>Community Health Center</span>
+                <span class="badge badge-full">ICU: 0 (FLOODED)</span>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <button class="btn-hazard" onclick="triggerRoadBlock()">🚨 TRIGGER HAZARD: BRIDGE SUBMERGED</button>
+        <button onclick="resetRoutes()">🔄 RESET STANDARD ROUTE</button>
+
+        <!-- Dynamic Detour Alert -->
+        <div class="alert-box" id="alert-box">
+            <strong style="color:#ff3366;">⚠️ ROAD BLOCKAGE DETECTED!</strong><br>
+            "NH-34 Bhagirathi Bridge submerged 1.2m. Road impassable."<br>
+            <span style="color:#00ff88;">➔ Dynamic A* recomputed in <strong>142ms</strong>!</span><br>
+            Ambulance Detoured via <strong>Dharasu Ridge Bypass</strong> to AIIMS Trauma.
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div style="color:#8da4c4; font-size:10px;">SOLVER LATENCY</div>
+                <div id="latency-val" style="color:#00ff88; font-weight:bold; margin-top:2px;">&lt; 250ms</div>
+            </div>
+            <div class="stat-card">
+                <div style="color:#8da4c4; font-size:10px;">TRANSIT TIME SAVED</div>
+                <div id="time-val" style="color:#00ffcc; font-weight:bold; margin-top:2px;">75 Mins Saved</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Init Leaflet Map centered on disaster zone (Uttarakhand / Delhi terrain coordinates)
+        const map = L.map('map').setView([30.7268, 78.4354], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '© OpenStreetMap | Sanjeevni Dynamic A*'
+        }).addTo(map);
+
+        // Coordinates
+        const disasterSite = [30.7350, 78.4200];
+        const bridgePoint = [30.7290, 78.4380];
+        const civilHosp = [30.7220, 78.4550];
+        const aiimsTrauma = [30.7080, 78.4480];
+
+        // Custom Marker Icons
+        const redIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            iconSize: [25, 41], iconAnchor: [12, 41]
+        });
+        const greenIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+            iconSize: [25, 41], iconAnchor: [12, 41]
+        });
+        const goldIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png',
+            iconSize: [25, 41], iconAnchor: [12, 41]
+        });
+
+        // Add Markers
+        L.marker(disasterSite, { icon: redIcon }).addTo(map).bindPopup("<b>DISASTER GROUND ZERO</b><br>Hotel Collapse Void B");
+        L.marker(civilHosp, { icon: goldIcon }).addTo(map).bindPopup("<b>District Civil Hospital</b><br>ICU Beds: 0 (SURGE FULL)");
+        L.marker(aiimsTrauma, { icon: greenIcon }).addTo(map).bindPopup("<b>AIIMS Regional Trauma</b><br>ICU Beds: 18 (AVAILABLE)");
+
+        // Routes
+        // 1. Standard Initial Route (Blue)
+        const standardRouteCoords = [
+            disasterSite,
+            [30.7320, 78.4280],
+            bridgePoint,
+            [30.7260, 78.4450],
+            civilHosp
+        ];
+        let standardPolyline = L.polyline(standardRouteCoords, { color: '#0088ff', weight: 5, opacity: 0.8 }).addTo(map);
+
+        // 2. Detour Route via Dharasu Ridge (Green)
+        const detourRouteCoords = [
+            disasterSite,
+            [30.7320, 78.4280],
+            [30.7250, 78.4220],
+            [30.7150, 78.4300],
+            [30.7100, 78.4400],
+            aiimsTrauma
+        ];
+        let detourPolyline = null;
+        let hazardCircle = null;
+
+        function triggerRoadBlock() {
+            // Add Red hazard circle at bridge
+            if (hazardCircle) map.removeLayer(hazardCircle);
+            hazardCircle = L.circle(bridgePoint, {
+                color: '#ff0033',
+                fillColor: '#ff0033',
+                fillOpacity: 0.5,
+                radius: 350
+            }).addTo(map).bindPopup("<b>HAZARD: Bridge Submerged 1.2m</b><br>Road Impassable").openPopup();
+
+            // Grey out or remove standard route
+            standardPolyline.setStyle({ color: '#555555', dashArray: '5, 10', opacity: 0.5 });
+
+            // Dynamic A* Detour Calculation Simulation (<250ms)
+            setTimeout(() => {
+                if (detourPolyline) map.removeLayer(detourPolyline);
+                detourPolyline = L.polyline(detourRouteCoords, { color: '#00ff88', weight: 6, opacity: 0.9 }).addTo(map);
+                document.getElementById('alert-box').style.display = 'block';
+                document.getElementById('latency-val').innerText = '142 ms';
+                document.getElementById('time-val').innerText = '75 Mins Saved';
+            }, 180);
+        }
+
+        function resetRoutes() {
+            if (hazardCircle) map.removeLayer(hazardCircle);
+            if (detourPolyline) map.removeLayer(detourPolyline);
+            standardPolyline.setStyle({ color: '#0088ff', dashArray: null, opacity: 0.8 });
+            document.getElementById('alert-box').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

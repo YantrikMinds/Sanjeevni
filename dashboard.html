@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SANJEEVNI - Tactical Fleet War Room</title>
+<style>
+  :root {
+    --bg-app: #f8fafc;
+    --card-bg: #ffffff;
+    --border-subtle: #e2e8f0;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --text-dim: #94a3b8;
+    --green-primary: #059669;
+    --green-light: #e6f9f0;
+    --green-accent: #00c988;
+    --blue-accent: #0284c7;
+    --blue-light: #e0f2fe;
+    --red-alert: #e11d48;
+    --red-light: #fee2e2;
+    --amber-warning: #f59e0b;
+    --amber-light: #fef3c7;
+    --shadow-card: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  html, body { height:100%; width:100%; background: var(--bg-app); color: var(--text-main); overflow: hidden; }
+
+  #app { display: flex; flex-direction: column; height: 100vh; }
+
+  /* Top Navigation Bar */
+  header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: none;
+    height: 56px;
+  }
+  .brand-area { display: flex; align-items: center; gap: 10px; }
+  .logo-icon {
+    width: 30px; height: 30px;
+    background: var(--green-light);
+    color: var(--green-accent);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: bold;
+  }
+  .brand-text h1 { font-size: 17px; font-weight: 800; letter-spacing: 0.5px; color: #0f172a; line-height: 1.1; }
+  .brand-text span { font-size: 9.5px; font-weight: 700; color: var(--text-muted); letter-spacing: 1px; }
+
+  .header-center {
+    display: flex; align-items: center; gap: 8px;
+  }
+  .fleet-pill {
+    background: #f1f5f9; border: 1px solid var(--border-subtle);
+    padding: 5px 12px; border-radius: 20px; font-size: 11.5px; font-weight: 700;
+    color: #334155; display: flex; align-items: center; gap: 6px;
+  }
+
+  .header-badges { display: flex; align-items: center; gap: 12px; }
+  .live-clock {
+    font-size: 12px; font-weight: 700; color: #0f172a;
+    display: flex; flex-direction: column; align-items: flex-end; line-height: 1.1;
+  }
+  .live-clock span { font-size: 9px; font-weight: 500; color: var(--text-muted); }
+
+  /* Main Workspace (Sidebar + Grid) */
+  .workspace { display: flex; flex: 1; min-height: 0; }
+
+  /* Left Sidebar: Connected Rover Fleet */
+  aside {
+    width: 250px; background: #ffffff;
+    border-right: 1px solid var(--border-subtle);
+    padding: 14px 12px; display: flex; flex-direction: column;
+    justify-content: space-between; flex: none; overflow-y: auto;
+  }
+  .aside-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border-subtle);
+  }
+  .aside-title { font-size: 12px; font-weight: 800; color: #0f172a; text-transform: uppercase; letter-spacing: 0.5px; }
+  .aside-cnt { font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 12px; background: var(--green-light); color: var(--green-primary); }
+
+  .device-list { display: flex; flex-direction: column; gap: 8px; }
+  .device-card {
+    background: #f8fafc; border: 1.5px solid var(--border-subtle);
+    border-radius: 10px; padding: 10px 12px; cursor: pointer;
+    transition: all 0.15s ease; position: relative;
+  }
+  .device-card:hover { border-color: #cbd5e1; background: #ffffff; }
+  .device-card.active {
+    background: #ffffff; border-color: var(--green-primary);
+    box-shadow: 0 2px 6px rgba(5, 150, 105, 0.15);
+  }
+  .dev-row-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .dev-name { font-size: 12.5px; font-weight: 800; color: #0f172a; }
+  .dev-pill {
+    font-size: 9.5px; font-weight: 800; padding: 2px 6px; border-radius: 10px;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .pill-live { background: var(--green-light); color: var(--green-primary); }
+  .pill-off  { background: #f1f5f9; color: var(--text-muted); }
+  .dev-loc { font-size: 10.5px; color: var(--text-muted); font-weight: 600; margin-bottom: 4px; }
+  .dev-stats { display: flex; gap: 8px; font-size: 10px; color: #475569; font-weight: 700; }
+
+  .aside-help {
+    background: #f8fafc; border: 1px dashed #cbd5e1;
+    border-radius: 10px; padding: 10px; text-align: center; margin-top: 10px;
+  }
+  .aside-help-title { font-size: 11px; font-weight: 700; color: #334155; margin-bottom: 4px; }
+  .aside-help-url {
+    font-size: 10px; font-family: monospace; background: #ffffff;
+    border: 1px solid var(--border-subtle); border-radius: 4px; padding: 4px;
+    word-break: break-all; color: var(--blue-accent); font-weight: bold;
+  }
+
+  /* Main Dashboard Body */
+  main {
+    flex: 1; padding: 12px 16px; display: flex;
+    flex-direction: column; gap: 10px; min-width: 0; overflow-y: auto;
+  }
+
+  .dashboard-grid {
+    display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.05fr);
+    gap: 12px; flex: 1; min-height: 0;
+  }
+
+  /* Card Containers */
+  .card-box {
+    background: #ffffff; border: 1px solid var(--border-subtle);
+    border-radius: 12px; padding: 12px 14px; box-shadow: var(--shadow-card);
+    display: flex; flex-direction: column; min-height: 0;
+  }
+  .card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px; flex: none;
+  }
+  .ch-left { display: flex; align-items: center; gap: 8px; }
+  .ch-title { font-size: 14px; font-weight: 700; color: #0f172a; }
+  .tag-feed { background: var(--green-light); color: var(--green-primary); font-size: 10.5px; font-weight: 700; padding: 3px 8px; border-radius: 12px; }
+
+  /* Quick Phone Switch Buttons above camera */
+  .cam-switch-bar {
+    display: flex; align-items: center; gap: 6px;
+  }
+  .btn-switch-phone {
+    background: #f1f5f9; border: 1px solid var(--border-subtle);
+    padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 700;
+    color: #475569; cursor: pointer; transition: all 0.15s;
+  }
+  .btn-switch-phone:hover { background: #e2e8f0; }
+  .btn-switch-phone.active {
+    background: var(--green-light); color: var(--green-primary); border-color: var(--green-accent);
+  }
+
+  /* Camera Viewport */
+  #feed-container {
+    position: relative; flex: 1; min-height: 270px;
+    background: #090e17; border-radius: 10px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #feed-container.alarm {
+    box-shadow: 0 0 0 3px #e11d48;
+    animation: alertBorder 0.9s infinite;
+  }
+  @keyframes alertBorder { 50% { box-shadow: 0 0 0 1px #e11d48; } }
+
+  #feed-img { width: 100%; height: 100%; object-fit: contain; display: none; }
+  #no-signal-box {
+    text-align: center; color: #94a3b8; font-size: 13px; line-height: 1.6;
+    display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 20px;
+  }
+  .sig-icon { font-size: 30px; color: #f43f5e; }
+
+  /* Viewport Overlays */
+  .feed-badge-top {
+    position: absolute; top: 10px; left: 10px;
+    background: rgba(15, 23, 42, 0.8); color: #fff;
+    padding: 4px 10px; border-radius: 4px; font-size: 10.5px; font-weight: 700;
+  }
+  .fps-badge-top {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(15, 23, 42, 0.8); color: #38bdf8;
+    padding: 4px 10px; border-radius: 4px; font-size: 10.5px; font-weight: 700;
+  }
+  .feed-instruction {
+    position: absolute; bottom: 8px; left: 10px; right: 10px;
+    background: rgba(15, 23, 42, 0.85); color: #f8fafc;
+    padding: 6px 12px; border-radius: 6px; font-size: 11px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  /* 4 Metric Cards */
+  .metrics-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 8px; margin-top: 10px; flex: none;
+  }
+  .metric-card {
+    background: #f8fafc; border: 1px solid var(--border-subtle);
+    border-radius: 8px; padding: 7px 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .m-icon { font-size: 18px; line-height: 1; }
+  .m-data { display: flex; flex-direction: column; }
+  .m-lbl { font-size: 9px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+  .m-val { font-size: 12.5px; font-weight: 800; color: #0f172a; margin-top: 1px; }
+
+  /* Right Panel: Survivor Alerts + Mission Targets */
+  .right-sections {
+    display: flex; flex-direction: column; gap: 12px; flex: 1; min-height: 0;
+  }
+
+  /* Section A: Live Detections Feed */
+  .sec-card {
+    background: #ffffff; border: 1px solid var(--border-subtle);
+    border-radius: 12px; padding: 12px 14px; box-shadow: var(--shadow-card);
+    display: flex; flex-direction: column; min-height: 0;
+  }
+  .sec-card-flex { flex: 1; }
+
+  .sec-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px; flex: none;
+  }
+  .sec-title { font-size: 13px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 6px; }
+  .sec-badge { font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 10px; }
+
+  .alerts-scroll {
+    flex: 1; min-height: 130px; max-height: 190px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .alert-item {
+    background: #fff5f5; border: 1px solid #fecdd3; border-left: 4px solid var(--red-alert);
+    border-radius: 8px; padding: 8px 10px; animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+  .al-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .al-badge { font-size: 10.5px; font-weight: 800; color: var(--red-alert); display: flex; align-items: center; gap: 4px; }
+  .al-time { font-size: 10px; color: var(--text-muted); font-weight: 600; }
+  .al-dev { font-size: 11.5px; font-weight: 700; color: #1e293b; margin-bottom: 2px; }
+  .al-loc { font-size: 11px; color: #475569; }
+  .al-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; }
+  .al-coords { font-size: 10px; font-family: monospace; color: var(--blue-accent); font-weight: bold; }
+  .btn-dispatch {
+    background: var(--red-alert); color: #ffffff; border: none;
+    padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 800;
+    cursor: pointer; transition: background 0.15s;
+  }
+  .btn-dispatch:hover { background: #be123c; }
+
+  .empty-alerts {
+    text-align: center; padding: 25px 15px; color: var(--text-muted);
+    font-size: 12px; font-weight: 600; background: #f8fafc; border-radius: 8px;
+  }
+
+  /* Section B: Targets Table ("Abhi Kahan Kahan Jana Hai") */
+  .targets-scroll {
+    flex: 1; min-height: 140px; overflow-y: auto;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 11.5px; text-align: left; }
+  th {
+    color: var(--text-muted); font-weight: 700; font-size: 10px; text-transform: uppercase;
+    padding: 6px 8px; border-bottom: 1px solid var(--border-subtle);
+  }
+  td { padding: 8px 8px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+  .tar-sec { font-weight: 700; color: #0f172a; line-height: 1.2; }
+  .tar-desc { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+  .tar-rover { font-size: 10px; font-weight: 700; color: var(--blue-accent); }
+  .st-badge {
+    padding: 2px 7px; border-radius: 10px; font-size: 9.5px; font-weight: 800; display: inline-block;
+  }
+  .st-active { background: var(--green-light); color: var(--green-primary); }
+  .st-queued { background: #fef3c7; color: #b45309; }
+  .st-pend   { background: #f1f5f9; color: var(--text-muted); }
+  .st-clear  { background: #e0f2fe; color: #0284c7; }
+
+  /* Bottom Emergency Rescue Dispatch Bar */
+  .approval-gate {
+    background: #ffffff; border: 1.5px solid #fde68a;
+    border-radius: 12px; padding: 10px 18px;
+    display: flex; justify-content: space-between; align-items: center;
+    box-shadow: var(--shadow-card); flex: none;
+  }
+  .gate-info { display: flex; align-items: center; gap: 10px; }
+  .gate-warn-icon { font-size: 22px; line-height: 1; }
+  .gate-title { font-size: 12.5px; font-weight: 800; color: #b45309; text-transform: uppercase; }
+  .gate-desc { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+  .gate-actions { display: flex; align-items: center; gap: 8px; }
+  .btn-gate {
+    padding: 8px 16px; border-radius: 8px; font-size: 12px; font-weight: 700;
+    cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 6px;
+    border: 1px solid transparent;
+  }
+  .btn-approve { background: var(--green-accent); color: #ffffff; }
+  .btn-approve:hover { background: #00b377; box-shadow: 0 2px 8px rgba(0,201,136,0.35); }
+  .btn-reset   { background: #ffffff; color: #64748b; border-color: var(--border-subtle); }
+  .btn-reset:hover { background: #f8fafc; }
+
+  /* Footer */
+  footer {
+    background: #ffffff; border-top: 1px solid var(--border-subtle);
+    padding: 6px 20px; display: flex; justify-content: space-between; align-items: center;
+    font-size: 11px; color: var(--text-muted); flex: none; height: 32px;
+  }
+  .f-group { display: flex; align-items: center; gap: 16px; }
+  .f-item { display: flex; align-items: center; gap: 5px; }
+  .dot-green { width: 7px; height: 7px; border-radius: 50%; background: var(--green-accent); }
+  .dot-red   { width: 7px; height: 7px; border-radius: 50%; background: #ef4444; }
+
+  /* Tactical Tele-Op Cockpit (Nano-Rover Direct Drive) */
+  .teleop-box {
+    margin-top: 10px; background: #0b1329; border-radius: 10px;
+    padding: 9px 12px; color: #f8fafc; border: 1px solid #1e293b;
+    display: flex; flex-direction: column; gap: 7px; flex: none;
+    box-shadow: 0 4px 12px rgba(2, 6, 23, 0.25);
+  }
+  .teleop-head {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .teleop-title {
+    font-size: 11px; font-weight: 800; letter-spacing: 0.5px;
+    display: flex; align-items: center; gap: 6px; color: #38bdf8;
+  }
+  .teleop-title-dot {
+    width: 7px; height: 7px; border-radius: 50%; background: #00c988;
+    box-shadow: 0 0 6px #00c988; animation: pulseDot 2s infinite;
+  }
+  @keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .teleop-status-tag {
+    font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px;
+    background: #1e293b; color: #94a3b8; font-family: monospace;
+    border: 1px solid #334155;
+  }
+  .teleop-status-tag.active {
+    background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: #059669;
+  }
+  .teleop-grid {
+    display: grid; grid-template-columns: 130px 1fr; gap: 14px; align-items: center;
+  }
+  .dpad-cluster {
+    display: grid; grid-template-columns: repeat(3, 38px); grid-template-rows: repeat(3, 34px);
+    gap: 4px; justify-content: center;
+  }
+  .dpad-btn {
+    background: #1e293b; border: 1px solid #334155; border-radius: 6px;
+    color: #e2e8f0; font-size: 11px; font-weight: 800; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: all 0.08s; user-select: none; -webkit-user-select: none;
+    line-height: 1.1;
+  }
+  .dpad-btn small { font-size: 8px; font-weight: 600; color: #94a3b8; }
+  .dpad-btn:hover { background: #334155; border-color: #64748b; color: #fff; }
+  .dpad-btn:active, .dpad-btn.pressed {
+    background: #00c988 !important; border-color: #34d399 !important; color: #fff !important;
+    transform: scale(0.92); box-shadow: 0 0 10px rgba(0,201,136,0.6);
+  }
+  .dpad-btn.btn-stop {
+    background: #450a0a; border-color: #7f1d1d; color: #fca5a5;
+  }
+  .dpad-btn.btn-stop:hover { background: #7f1d1d; color: #fff; }
+  .dpad-btn.btn-stop:active, .dpad-btn.btn-stop.pressed {
+    background: #ef4444 !important; border-color: #f87171 !important; color: #fff !important;
+    transform: scale(0.92); box-shadow: 0 0 10px rgba(239,68,68,0.6);
+  }
+  .teleop-controls {
+    display: flex; flex-direction: column; gap: 6px; font-size: 11px;
+  }
+  .teleop-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .speed-pills { display: flex; gap: 4px; }
+  .spd-btn {
+    padding: 3px 7px; font-size: 9.5px; font-weight: 700; border-radius: 4px;
+    background: #1e293b; color: #94a3b8; border: 1px solid #334155; cursor: pointer;
+    transition: all 0.15s;
+  }
+  .spd-btn.active {
+    background: #0284c7; color: #fff; border-color: #38bdf8;
+  }
+  .ip-input-box {
+    background: #020617; border: 1px solid #334155; border-radius: 4px;
+    color: #38bdf8; font-family: monospace; font-size: 10px; padding: 2px 6px; width: 105px;
+  }
+  .btn-torch-toggle {
+    background: #1e293b; border: 1px solid #475569; color: #e2e8f0; border-radius: 4px;
+    font-size: 10px; font-weight: 700; padding: 3px 8px; cursor: pointer; display: flex; align-items: center; gap: 4px;
+    transition: all 0.15s;
+  }
+  .btn-torch-toggle.torch-on {
+    background: #eab308; color: #0f172a; border-color: #facc15; font-weight: 800;
+  }
+  .teleop-guide-text {
+    font-size: 9.5px; color: #94a3b8; background: rgba(30, 41, 59, 0.6);
+    padding: 3px 6px; border-radius: 4px; border: 1px dashed #334155;
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+  <!-- Top Navigation Bar -->
+  <header>
+    <div class="brand-area">
+      <div class="logo-icon">⚡</div>
+      <div class="brand-text">
+        <h1>SANJEEVNI</h1>
+        <span>MULTI-ROVER TACTICAL WAR ROOM</span>
+      </div>
+    </div>
+
+    <!-- Center Active Info -->
+    <div class="header-center">
+      <div class="fleet-pill">
+        <span>📡 Connected Fleet:</span>
+        <strong id="top-fleet-stat" style="color:var(--green-primary);">1 Active / 2 Registered</strong>
+      </div>
+    </div>
+
+    <!-- Right Clock & Sound -->
+    <div class="header-badges">
+      <button class="btn-switch-phone" onclick="toggleSound()" id="sound-btn" style="padding:4px 10px;">🔊 Sound: ON</button>
+      <div class="live-clock">
+        <div id="clock-time">--:--:--</div>
+        <span id="clock-date">Live System Sync</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Workspace: Left Sidebar + Main Content -->
+  <div class="workspace">
+    <!-- Left Sidebar: Active Rover Fleet -->
+    <aside>
+      <div>
+        <div class="aside-head">
+          <span class="aside-title">📱 Connected Rovers</span>
+          <span class="aside-cnt" id="aside-dev-cnt">2 Devices</span>
+        </div>
+
+        <div class="device-list" id="fleet-container">
+          <!-- Dynamically populated or default cards -->
+          <div class="device-card active" onclick="selectDevice('MOTO-G62')" id="card-MOTO-G62">
+            <div class="dev-row-top">
+              <span class="dev-name">Rover Alpha (Moto G62)</span>
+              <span class="dev-pill pill-live" id="pill-MOTO-G62">🟢 LIVE</span>
+            </div>
+            <div class="dev-loc">📍 Sector B-2 (Hotel Void)</div>
+            <div class="dev-stats">
+              <span>🔋 <span id="bat-MOTO-G62">92%</span></span>
+              <span>📶 <span id="sig-MOTO-G62">-64dBm</span></span>
+              <span>⚡ <span id="fps-MOTO-G62">18 FPS</span></span>
+            </div>
+          </div>
+
+          <div class="device-card" onclick="selectDevice('IPHONE-13')" id="card-IPHONE-13">
+            <div class="dev-row-top">
+              <span class="dev-name">Rover Beta (iPhone 13)</span>
+              <span class="dev-pill pill-off" id="pill-IPHONE-13">⚪ STANDBY</span>
+            </div>
+            <div class="dev-loc">📍 Sector D-4 (Residential C)</div>
+            <div class="dev-stats">
+              <span>🔋 <span id="bat-IPHONE-13">89%</span></span>
+              <span>📶 <span id="sig-IPHONE-13">-60dBm</span></span>
+              <span>⚡ <span id="fps-IPHONE-13">0 FPS</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Phone Instructions -->
+      <div class="aside-help">
+        <div class="aside-help-title">📲 Connect Another Phone</div>
+        <div style="font-size:10px; color:var(--text-muted); margin-bottom:4px;">Open on phone browser:</div>
+        <div class="aside-help-url" id="phone-connect-url">https://172.20.10.10:8443/rover</div>
+        <div style="font-size:9.5px; color:#64748b; margin-top:4px;">Select phone name at top of screen</div>
+      </div>
+    </aside>
+
+    <!-- Main Dashboard Body -->
+    <main>
+      <div class="dashboard-grid">
+        <!-- Left Panel: Live Camera Feed for Selected Phone -->
+        <div class="card-box">
+          <div class="card-header">
+            <div class="ch-left">
+              <span style="font-size:16px;">📹</span>
+              <span class="ch-title" id="feed-title">Live Feed: Rover Alpha (Moto G62)</span>
+              <span class="tag-feed" id="feed-status-badge">• Live Stream</span>
+            </div>
+
+            <!-- Quick Switch Buttons -->
+            <div class="cam-switch-bar" id="quick-switch-bar">
+              <button class="btn-switch-phone active" id="btn-sw-MOTO-G62" onclick="selectDevice('MOTO-G62')">📱 Moto G62</button>
+              <button class="btn-switch-phone" id="btn-sw-IPHONE-13" onclick="selectDevice('IPHONE-13')">📱 iPhone 13</button>
+            </div>
+          </div>
+
+          <!-- Video Viewport -->
+          <div id="feed-container">
+            <img id="feed-img" alt="Selected Rover Video Feed">
+
+            <div id="no-signal-box">
+              <div class="sig-icon">📡</div>
+              <strong style="color:#ffffff;" id="no-sig-title">AWAITING ROVER STREAM</strong>
+              <span id="no-sig-desc">Phone pe <code id="no-sig-link">https://172.20.10.10:8443/rover</code> kholo aur START dabao</span>
+            </div>
+
+            <!-- Overlays -->
+            <div class="feed-badge-top" id="badge-det" style="display:none; background:#e11d48; color:#fff;">
+              🚨 PERSON / LIMB DETECTED
+            </div>
+            <div class="fps-badge-top" id="badge-fps">0 FPS</div>
+
+            <div class="feed-instruction">
+              <span id="feed-hint">Selected: Rover Alpha (Moto G62)</span>
+              <span id="feed-loc-hint">📍 Sector B-2 Void</span>
+            </div>
+          </div>
+
+          <!-- 4 Metric Cards for Active Rover -->
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="m-icon">🌡️</div>
+              <div class="m-data">
+                <span class="m-lbl">IMU Structural Tilt</span>
+                <span class="m-val" id="val-tilt" style="color:var(--green-primary);">5.0° STABLE</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="m-icon">☁️</div>
+              <div class="m-data">
+                <span class="m-lbl">Methane CH4</span>
+                <span class="m-val" id="val-ch4" style="color:#0284c7;">16 PPM</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="m-icon">🛑</div>
+              <div class="m-data">
+                <span class="m-lbl">Carbon Monoxide</span>
+                <span class="m-val" id="val-co" style="color:#ea580c;">7 PPM</span>
+              </div>
+            </div>
+
+            <div class="metric-card">
+              <div class="m-icon">📏</div>
+              <div class="m-data">
+                <span class="m-lbl">Void Clearance</span>
+                <span class="m-val" id="val-clr" style="color:#0d9488;">1.15 m</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tactical Tele-Op Cockpit (Nano-Rover Direct Drive Station) -->
+          <div class="teleop-box">
+            <div class="teleop-head">
+              <div class="teleop-title">
+                <span class="teleop-title-dot"></span>
+                <span>🕹️ NANO-ROVER TACTICAL DRIVE COCKPIT</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="teleop-status-tag" id="teleop-drive-tag">IDLE / BRAKE</span>
+                <button class="btn-torch-toggle" id="btn-torch" onclick="toggleTorch()">🔦 IR TORCH: OFF</button>
+              </div>
+            </div>
+
+            <div class="teleop-grid">
+              <!-- Left: 3x3 D-Pad Cluster -->
+              <div class="dpad-cluster">
+                <div></div>
+                <button class="dpad-btn" id="dpad-fwd" onmousedown="handleDriveCmd('w')" onmouseup="handleDriveCmd('stop')" ontouchstart="handleDriveCmd('w')" ontouchend="handleDriveCmd('stop')">▲<small>W</small></button>
+                <div></div>
+                <button class="dpad-btn" id="dpad-left" onmousedown="handleDriveCmd('a')" onmouseup="handleDriveCmd('stop')" ontouchstart="handleDriveCmd('a')" ontouchend="handleDriveCmd('stop')">◀<small>A</small></button>
+                <button class="dpad-btn btn-stop" id="dpad-stop" onclick="handleDriveCmd('stop')">■<small>STOP</small></button>
+                <button class="dpad-btn" id="dpad-right" onmousedown="handleDriveCmd('d')" onmouseup="handleDriveCmd('stop')" ontouchstart="handleDriveCmd('d')" ontouchend="handleDriveCmd('stop')">▶<small>D</small></button>
+                <div></div>
+                <button class="dpad-btn" id="dpad-rev" onmousedown="handleDriveCmd('s')" onmouseup="handleDriveCmd('stop')" ontouchstart="handleDriveCmd('s')" ontouchend="handleDriveCmd('stop')">▼<small>S</small></button>
+                <div></div>
+              </div>
+
+              <!-- Right: Motor Parameters & Hotkeys -->
+              <div class="teleop-controls">
+                <div class="teleop-row">
+                  <span style="font-weight:700; color:#94a3b8; font-size:10px;">SPEED TORQUE:</span>
+                  <div class="speed-pills">
+                    <button class="spd-btn active" id="spd-btn-crawl" onclick="setRoverSpeed(90, this)">35% CRAWL</button>
+                    <button class="spd-btn" id="spd-btn-trav" onclick="setRoverSpeed(180, this)">70% TRAVERSE</button>
+                    <button class="spd-btn" id="spd-btn-sprint" onclick="setRoverSpeed(255, this)">100% MAX</button>
+                  </div>
+                </div>
+
+                <div class="teleop-row">
+                  <span style="font-weight:700; color:#94a3b8; font-size:10px;">TARGET ROUTE:</span>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <input type="text" class="ip-input-box" id="teleop-ip" value="192.168.4.1" placeholder="Rover IP" />
+                    <span style="font-size:9.5px; color:#38bdf8;" id="teleop-ack-lbl">VIA GATEWAY</span>
+                  </div>
+                </div>
+
+                <div class="teleop-guide-text">
+                  ⌨️ Hotkeys: <b>[W / A / S / D]</b> or <b>[Arrow Keys]</b> to steer. <b>[Spacebar]</b> for Emergency Brake.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel: Survivor Alerts + Mission Targets ("Kahan Kahan Jana Hai") -->
+        <div class="right-sections">
+          <!-- Section 1: Live Survivor Detections Feed -->
+          <div class="sec-card">
+            <div class="sec-head">
+              <span class="sec-title">🚨 Live Survivor Detections <span style="font-size:11px; color:var(--text-muted);">(Real-Time Alerts)</span></span>
+              <span class="sec-badge" id="det-cnt-badge" style="background:var(--red-light); color:var(--red-alert);">1 Alert</span>
+            </div>
+
+            <div class="alerts-scroll" id="alerts-container">
+              <!-- Detection Item -->
+              <div class="alert-item">
+                <div class="al-top">
+                  <span class="al-badge">🚨 PERSON DETECTED (88%)</span>
+                  <span class="al-time">11:32:05</span>
+                </div>
+                <div class="al-dev">📱 Rover Alpha (Moto G62)</div>
+                <div class="al-loc">📍 Sector B-2: Grand Palace Hotel Sublevel Void</div>
+                <div class="al-foot">
+                  <span class="al-coords">🌐 28.7041° N, 77.1025° E</span>
+                  <button class="btn-dispatch" onclick="dispatchRescue('Sector B-2', 'Moto G62')">✔ Dispatch USAR Squad</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 2: Mission Targets ("Abhi Kahan Kahan Jana Hai") -->
+          <div class="sec-card sec-card-flex">
+            <div class="sec-head">
+              <span class="sec-title">🎯 Mission Targets <span style="font-size:11px; color:var(--text-muted);">(Abhi Kahan Kahan Jana Hai)</span></span>
+              <span class="sec-badge" style="background:#e0f2fe; color:#0369a1;">4 Sectors</span>
+            </div>
+
+            <div class="targets-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Sector / Void</th>
+                    <th>Assigned Rover</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="targets-tbody">
+                  <tr>
+                    <td>
+                      <div class="tar-sec">Sector B-2: Hotel Collapse</div>
+                      <div class="tar-desc">Sublevel Pancake void</div>
+                    </td>
+                    <td><span class="tar-rover">📱 Moto G62</span></td>
+                    <td><span class="st-badge st-active">🟢 SCANNING</span></td>
+                    <td><button class="btn-switch-phone" onclick="selectDevice('MOTO-G62')">View ›</button></td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="tar-sec">Sector D-4: Sunrise Apts (C)</div>
+                      <div class="tar-desc">Stairwell Lean-to void</div>
+                    </td>
+                    <td><span class="tar-rover">📱 iPhone 13</span></td>
+                    <td><span class="st-badge st-queued">🟡 QUEUED</span></td>
+                    <td><button class="btn-switch-phone" onclick="selectDevice('IPHONE-13')">View ›</button></td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="tar-sec">Sector A-1: Metro Concourse</div>
+                      <div class="tar-desc">Basement Cantilever void</div>
+                    </td>
+                    <td><span class="tar-rover" style="color:var(--text-muted);">Unit 03 (Standby)</span></td>
+                    <td><span class="st-badge st-pend">⚪ PENDING</span></td>
+                    <td><button class="btn-switch-phone" onclick="selectDevice('ROVER-03')">View ›</button></td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <div class="tar-sec">Sector C-3: Hospital Wing</div>
+                      <div class="tar-desc">Ground Level Corridor</div>
+                    </td>
+                    <td><span class="tar-rover" style="color:var(--green-primary);">Ambulance Path</span></td>
+                    <td><span class="st-badge st-clear">✔ CLEARED</span></td>
+                    <td><button class="btn-switch-phone" onclick="alert('Sector C-3 is cleared.')">Check ›</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Emergency Approval Bar -->
+      <div class="approval-gate">
+        <div class="gate-info">
+          <div class="gate-warn-icon">⚠️</div>
+          <div>
+            <div class="gate-title">EMERGENCY RESCUE DISPATCH GATE</div>
+            <div class="gate-desc">Commander authorization for rapid rescue squad deployment to verified survivor location.</div>
+          </div>
+        </div>
+
+        <div class="gate-actions">
+          <button class="btn-gate btn-approve" onclick="dispatchRescue('Current Sector', activeDevice)">✔ DISPATCH RESCUE TEAM</button>
+          <button class="btn-gate btn-reset" onclick="resetAlerts()">🔄 Clear Alerts</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer Status Strip -->
+  <footer>
+    <div class="f-group">
+      <span style="font-weight:700; color:#0f172a;">Fleet Gateway</span>
+      <div class="f-item"><span class="dot-green"></span> Gateway Online</div>
+      <div class="f-item"><span class="dot-green"></span> Mesh Uplink Nominal</div>
+      <div class="f-item">Active View: <strong id="foot-active-dev" style="color:var(--green-primary); margin-left:3px;">Moto G62</strong></div>
+    </div>
+
+    <div class="f-group">
+      <div class="f-item">📍 Lat 28.7041° N, Long 77.1025° E</div>
+      <div class="f-item">⛅ 28°C Weather</div>
+      <div class="f-item">Lead: <strong>Commander Nishant Pathak</strong></div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+
+  // Active Selected Device
+  let activeDevice = 'MOTO-G62';
+  let registeredDevices = [];
+  let seq = -1;
+  let lastFrameTime = 0;
+  let frameCount = 0;
+  let lastFpsTime = performance.now();
+  let soundEnabled = true;
+  let lastBeep = 0;
+
+  function toggleSound() {
+    soundEnabled = !soundEnabled;
+    $('sound-btn').textContent = soundEnabled ? "🔊 Sound: ON" : "🔇 Sound: OFF";
+  }
+
+  function playAlertBeep() {
+    if (!soundEnabled || performance.now() - lastBeep < 3500) return;
+    try {
+      const actx = new (window.AudioContext || window.webkitAudioContext)();
+      const t = actx.currentTime;
+      [880, 1100].forEach((freq, idx) => {
+        const o = actx.createOscillator(), g = actx.createGain();
+        o.type = 'triangle'; o.frequency.value = freq;
+        g.gain.setValueAtTime(0.12, t + idx * 0.12);
+        g.gain.exponentialRampToValueAtTime(0.001, t + idx * 0.12 + 0.14);
+        o.connect(g); g.connect(actx.destination);
+        o.start(t + idx * 0.12); o.stop(t + idx * 0.12 + 0.15);
+      });
+      lastBeep = performance.now();
+    } catch(e) {}
+  }
+
+  // Live Clock
+  function updateClock() {
+    const now = new Date();
+    $('clock-time').textContent = now.toTimeString().split(' ')[0];
+    $('clock-date').textContent = now.toLocaleDateString('en-US', { weekday: 'short', day: 'numeric', month: 'short' });
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Switch Active Phone
+  function selectDevice(devId) {
+    if (!devId) return;
+    activeDevice = devId.toUpperCase();
+    seq = -1; // reset long-poll sequence for newly selected phone
+    $('feed-title').textContent = `Live Feed: ${activeDevice === 'MOTO-G62' ? 'Rover Alpha (Moto G62)' : activeDevice === 'IPHONE-13' ? 'Rover Beta (iPhone 13)' : activeDevice}`;
+    $('feed-hint').textContent = `Selected: ${activeDevice}`;
+    $('foot-active-dev').textContent = activeDevice;
+
+    // Update active card styles on left
+    document.querySelectorAll('.device-card').forEach(c => c.classList.remove('active'));
+    const cardEl = $(`card-${activeDevice}`);
+    if (cardEl) cardEl.classList.add('active');
+
+    // Update quick switch buttons above video
+    document.querySelectorAll('.btn-switch-phone').forEach(b => {
+      if (b.id && b.id.startsWith('btn-sw-')) b.classList.remove('active');
+    });
+    const btnSw = $(`btn-sw-${activeDevice}`);
+    if (btnSw) btnSw.classList.add('active');
+
+    // Notify server of active device change
+    try {
+      fetch('/api/active-device', { method: 'POST', body: JSON.stringify({ device: activeDevice }) });
+    } catch(e) {}
+  }
+
+  // Poll Fleet Devices Status
+  async function pollDevices() {
+    try {
+      const res = await fetch('/api/devices');
+      if (res.ok) {
+        const data = await res.json();
+        registeredDevices = data.devices || [];
+
+        // Count online
+        const onlineCount = registeredDevices.filter(d => d.online).length;
+        $('top-fleet-stat').textContent = `${onlineCount} Active / ${registeredDevices.length} Registered`;
+        $('aside-dev-cnt').textContent = `${registeredDevices.length} Devices`;
+
+        // Render device cards if changed
+        renderFleetCards(registeredDevices);
+
+        // Update active device telemetry
+        const curDev = registeredDevices.find(d => d.node_id === activeDevice);
+        if (curDev) {
+          const s = curDev.sensors || {};
+          const tilt = s.tilt_deg || 5.0;
+          $('val-tilt').textContent = `${tilt}° ${tilt > 25 ? 'HAZARD' : 'STABLE'}`;
+          $('val-tilt').style.color = tilt > 25 ? '#e11d48' : 'var(--green-primary)';
+
+          $('val-ch4').textContent = `${s.ch4_methane_ppm || 16} PPM`;
+          $('val-co').textContent = `${s.co_ppm || 7} PPM`;
+          $('val-clr').textContent = `${s.void_clearance_m || 1.15} m`;
+          $('feed-loc-hint').textContent = `📍 ${curDev.location || 'Disaster Void'}`;
+        }
+      }
+    } catch(e) {}
+  }
+
+  function renderFleetCards(devs) {
+    const container = $('fleet-container');
+    const quickBar = $('quick-switch-bar');
+
+    // Rebuild cards if count differs or update pills
+    devs.forEach(d => {
+      let card = $(`card-${d.node_id}`);
+      if (!card) {
+        card = document.createElement('div');
+        card.className = `device-card ${d.node_id === activeDevice ? 'active' : ''}`;
+        card.id = `card-${d.node_id}`;
+        card.onclick = () => selectDevice(d.node_id);
+        card.innerHTML = `
+          <div class="dev-row-top">
+            <span class="dev-name">${d.name}</span>
+            <span class="dev-pill ${d.online ? 'pill-live' : 'pill-off'}" id="pill-${d.node_id}">${d.online ? '🟢 LIVE' : '⚪ STANDBY'}</span>
+          </div>
+          <div class="dev-loc">📍 ${d.location}</div>
+          <div class="dev-stats">
+            <span>🔋 <span id="bat-${d.node_id}">${d.battery}%</span></span>
+            <span>📶 <span id="sig-${d.node_id}">Good</span></span>
+            <span>⚡ <span id="fps-${d.node_id}">${d.fps} FPS</span></span>
+          </div>
+        `;
+        container.appendChild(card);
+
+        // Also add quick button above video if not present
+        if (!$(`btn-sw-${d.node_id}`)) {
+          const btn = document.createElement('button');
+          btn.className = `btn-switch-phone ${d.node_id === activeDevice ? 'active' : ''}`;
+          btn.id = `btn-sw-${d.node_id}`;
+          btn.textContent = `📱 ${d.node_id}`;
+          btn.onclick = () => selectDevice(d.node_id);
+          quickBar.appendChild(btn);
+        }
+      } else {
+        const pill = $(`pill-${d.node_id}`);
+        if (pill) {
+          pill.className = `dev-pill ${d.online ? 'pill-live' : 'pill-off'}`;
+          pill.textContent = d.online ? `🟢 LIVE (${d.fps} FPS)` : '⚪ STANDBY';
+        }
+        if ($(`bat-${d.node_id}`)) $(`bat-${d.node_id}`).textContent = `${d.battery}%`;
+        if ($(`fps-${d.node_id}`)) $(`fps-${d.node_id}`).textContent = `${d.fps} FPS`;
+      }
+    });
+  }
+
+  // Poll Detections Feed (Real-Time Survivor Alerts)
+  async function pollDetections() {
+    try {
+      const res = await fetch('/api/detections');
+      if (res.ok) {
+        const events = await res.json();
+        renderAlerts(events);
+      }
+    } catch(e) {}
+  }
+
+  function renderAlerts(events) {
+    const cont = $('alerts-container');
+    $('det-cnt-badge').textContent = `${events.length} Alert${events.length === 1 ? '' : 's'}`;
+
+    if (!events || events.length === 0) {
+      cont.innerHTML = `<div class="empty-alerts">🔍 All rovers actively scanning rubble voids...<br>Live detection alerts will appear here in real-time.</div>`;
+      return;
+    }
+
+    cont.innerHTML = events.slice(0, 10).map(evt => `
+      <div class="alert-item">
+        <div class="al-top">
+          <span class="al-badge">🚨 PERSON DETECTED (${evt.confidence}%)</span>
+          <span class="al-time">${evt.timestamp}</span>
+        </div>
+        <div class="al-dev">📱 ${evt.device_name}</div>
+        <div class="al-loc">📍 ${evt.location}</div>
+        <div class="al-foot">
+          <span class="al-coords">🌐 ${evt.coordinates}</span>
+          <button class="btn-dispatch" onclick="dispatchRescue('${evt.location}', '${evt.device_name}')">✔ Dispatch USAR</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Live Camera Frames Long-Polling for Selected Device
+  async function fetchFrameLoop() {
+    for (;;) {
+      try {
+        const res = await fetch(`/api/frame.jpg?device=${encodeURIComponent(activeDevice)}&after=${seq}`, { cache: 'no-store' });
+        if (res.status === 200) {
+          seq = +res.headers.get('X-Seq');
+          const detHeader = res.headers.get('X-Det');
+          let detInfo = null;
+          if (detHeader) {
+            try { detInfo = JSON.parse(detHeader); } catch(e) {}
+          }
+
+          const blob = await res.blob();
+          if (blob && blob.size > 100) {
+            const imgUrl = URL.createObjectURL(blob);
+            const oldSrc = $('feed-img').src;
+            $('feed-img').src = imgUrl;
+            $('feed-img').style.display = 'block';
+            $('no-signal-box').style.display = 'none';
+            if (oldSrc && oldSrc.startsWith('blob:')) {
+              setTimeout(() => { try { URL.revokeObjectURL(oldSrc); } catch(e) {} }, 1500);
+            }
+          }
+
+          lastFrameTime = performance.now();
+          frameCount++;
+          $('feed-status-badge').textContent = '• Live Stream';
+          $('feed-status-badge').style.background = 'var(--green-light)';
+          $('feed-status-badge').style.color = 'var(--green-primary)';
+
+          // Survivor Detection visual feedback
+          if (detInfo && detInfo.detected) {
+            $('badge-det').style.display = 'block';
+            $('badge-det').textContent = `🚨 PERSON / LIMB (${Math.round(detInfo.confidence * 100)}%)`;
+            $('feed-container').classList.add('alarm');
+            playAlertBeep();
+          } else {
+            $('badge-det').style.display = 'none';
+            $('feed-container').classList.remove('alarm');
+          }
+        }
+      } catch(e) {
+        await new Promise(r => setTimeout(r, 500));
+      }
+
+      // Check if active device disconnected (> 3.5s without frame)
+      if (performance.now() - lastFrameTime > 3500) {
+        $('feed-img').style.display = 'none';
+        $('no-signal-box').style.display = 'flex';
+        $('badge-det').style.display = 'none';
+        $('feed-container').classList.remove('alarm');
+        $('badge-fps').textContent = "0 FPS";
+        $('feed-status-badge').textContent = '• Awaiting Stream';
+        $('feed-status-badge').style.background = '#f1f5f9';
+        $('feed-status-badge').style.color = 'var(--text-muted)';
+      }
+
+      // Calculate FPS
+      const now = performance.now();
+      if (now - lastFpsTime >= 1000) {
+        if (performance.now() - lastFrameTime <= 3500) {
+          $('badge-fps').textContent = `${frameCount} FPS`;
+        }
+        frameCount = 0;
+        lastFpsTime = now;
+      }
+    }
+  }
+
+  // Dispatch Action
+  async function dispatchRescue(locationName, deviceName) {
+    try {
+      const res = await fetch('/api/signoff', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          commander: 'Commander Nishant Pathak',
+          location: locationName,
+          device: deviceName
+        })
+      });
+      alert(`[USAR RESCUE SQUAD DISPATCHED]\n\nLocation: ${locationName}\nVerified By: ${deviceName}\nAuthorized By: Commander Nishant Pathak\nUSAR Squad deploying along safe entry corridor.`);
+    } catch(e) {
+      alert("Dispatch error: " + e.message);
+    }
+  }
+
+  async function resetAlerts() {
+    try {
+      await fetch('/api/reset', { method: 'POST' });
+      pollDetections();
+    } catch(e) {}
+  }
+
+  // Initial IP & Connect URL Update
+  async function initInfo() {
+    try {
+      const res = await fetch('/api/ping');
+      if (res.ok) {
+        const d = await res.json();
+        const ip = d.ip || location.hostname;
+        const port = d.port || 8443;
+        const url = `https://${ip}:${port}/rover`;
+        $('phone-connect-url').textContent = url;
+        $('no-sig-link').textContent = url;
+      }
+    } catch(e) {}
+  }
+
+  // -------------------------------------------------------------
+  // TACTICAL TELE-OP NANO-ROVER DRIVE CONTROLLER
+  // -------------------------------------------------------------
+  let currentDriveSpeed = 180;
+  let activeDriveCmd = 'stop';
+  let isTorchOn = false;
+
+  function setRoverSpeed(spd, btnEl) {
+    currentDriveSpeed = spd;
+    document.querySelectorAll('.spd-btn').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
+  }
+
+  async function handleDriveCmd(cmd) {
+    if (activeDriveCmd === cmd && cmd !== 'stop') return;
+    activeDriveCmd = cmd;
+    
+    // Visual indicators
+    const tag = $('teleop-drive-tag');
+    const dpadIds = { 'w': 'dpad-fwd', 's': 'dpad-rev', 'a': 'dpad-left', 'd': 'dpad-right', 'stop': 'dpad-stop' };
+    
+    // Clear pressed states
+    ['dpad-fwd', 'dpad-rev', 'dpad-left', 'dpad-right', 'dpad-stop'].forEach(id => {
+      const el = $(id);
+      if (el) el.classList.remove('pressed');
+    });
+
+    if (cmd !== 'stop') {
+      const activeEl = $(dpadIds[cmd]);
+      if (activeEl) activeEl.classList.add('pressed');
+      if (tag) {
+        tag.textContent = `DRIVE: ${cmd.toUpperCase()} (${currentDriveSpeed})`;
+        tag.classList.add('active');
+      }
+    } else {
+      if (tag) {
+        tag.textContent = 'IDLE / BRAKE';
+        tag.classList.remove('active');
+      }
+    }
+
+    const roverIp = ($('teleop-ip') ? $('teleop-ip').value.trim() : '192.168.4.1');
+    try {
+      await fetch(`/api/rover_cmd?cmd=${encodeURIComponent(cmd)}&spd=${currentDriveSpeed}&ip=${encodeURIComponent(roverIp)}`);
+    } catch(e) {}
+  }
+
+  async function toggleTorch() {
+    isTorchOn = !isTorchOn;
+    const btn = $('btn-torch');
+    if (btn) {
+      if (isTorchOn) {
+        btn.classList.add('torch-on');
+        btn.innerHTML = '🔦 IR TORCH: ON';
+      } else {
+        btn.classList.remove('torch-on');
+        btn.innerHTML = '🔦 IR TORCH: OFF';
+      }
+    }
+    const roverIp = ($('teleop-ip') ? $('teleop-ip').value.trim() : '192.168.4.1');
+    try {
+      await fetch(`/api/rover_cmd?cmd=torch&ip=${encodeURIComponent(roverIp)}`);
+    } catch(e) {}
+  }
+
+  // Keyboard navigation listeners
+  window.addEventListener('keydown', (e) => {
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+    const key = e.key.toLowerCase();
+    let cmd = null;
+    if (key === 'w' || key === 'arrowup') cmd = 'w';
+    else if (key === 's' || key === 'arrowdown') cmd = 's';
+    else if (key === 'a' || key === 'arrowleft') cmd = 'a';
+    else if (key === 'd' || key === 'arrowright') cmd = 'd';
+    else if (key === ' ' || key === 'escape') cmd = 'stop';
+
+    if (cmd) {
+      e.preventDefault();
+      handleDriveCmd(cmd);
+    }
+  });
+
+  window.addEventListener('keyup', (e) => {
+    if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
+    const key = e.key.toLowerCase();
+    if (['w', 'a', 's', 'd', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'].includes(key)) {
+      e.preventDefault();
+      handleDriveCmd('stop');
+    }
+  });
+
+  // Start polling loops
+  window.addEventListener('load', () => {
+    initInfo();
+    pollDevices();
+    pollDetections();
+    setInterval(pollDevices, 1500);
+    setInterval(pollDetections, 2000);
+    fetchFrameLoop();
+  });
+</script>
+</body>
+</html>

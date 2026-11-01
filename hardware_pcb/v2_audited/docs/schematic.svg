@@ -1,0 +1,443 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1362" font-family="Arial, sans-serif" font-size="12">
+<rect width="1400" height="1250" fill="white"/>
+<text x="20" y="28" font-size="20" font-weight="bold">SANJEEVNI NANO ROVER v2 - connection map (generated from design.py)</text>
+<text x="20" y="48" fill="#555">Each pin shows the NET it joins. Same net name = connected. Passives are listed under each IC.</text>
+<rect x="20" y="70" width="430" height="690" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="28" y="90" font-weight="bold" font-size="14">U1  ESP32-S3-WROOM-1-N8R8</text>
+<text x="30" y="108" fill="#444">1</text>
+<text x="70" y="108">GND</text>
+<text x="210" y="108" fill="#003366" font-family="monospace">GND</text>
+<text x="30" y="124" fill="#444">2</text>
+<text x="70" y="124">3V3</text>
+<text x="210" y="124" fill="#003366" font-family="monospace">+3V3</text>
+<text x="30" y="140" fill="#444">3</text>
+<text x="70" y="140">EN</text>
+<text x="210" y="140" fill="#003366" font-family="monospace">EN</text>
+<text x="30" y="156" fill="#444">4</text>
+<text x="70" y="156">IO4</text>
+<text x="210" y="156" fill="#003366" font-family="monospace">MOT_L_FWD</text>
+<text x="30" y="172" fill="#444">5</text>
+<text x="70" y="172">IO5</text>
+<text x="210" y="172" fill="#003366" font-family="monospace">MOT_L_REV</text>
+<text x="30" y="188" fill="#444">6</text>
+<text x="70" y="188">IO6</text>
+<text x="210" y="188" fill="#003366" font-family="monospace">MOT_R_FWD</text>
+<text x="30" y="204" fill="#444">7</text>
+<text x="70" y="204">IO7</text>
+<text x="210" y="204" fill="#003366" font-family="monospace">MOT_R_REV</text>
+<text x="30" y="220" fill="#444">8</text>
+<text x="70" y="220">IO15</text>
+<text x="210" y="220" fill="#003366" font-family="monospace">IR_EN</text>
+<text x="30" y="236" fill="#444">9</text>
+<text x="70" y="236">IO16</text>
+<text x="210" y="236" fill="#003366" font-family="monospace">LED_STAT</text>
+<text x="30" y="252" fill="#444">10</text>
+<text x="70" y="252">IO17</text>
+<text x="210" y="252" fill="#003366" font-family="monospace">I2C_SCL</text>
+<text x="30" y="268" fill="#444">11</text>
+<text x="70" y="268">IO18</text>
+<text x="210" y="268" fill="#003366" font-family="monospace">I2C_SDA</text>
+<text x="30" y="284" fill="#444">12</text>
+<text x="70" y="284">IO8</text>
+<text x="210" y="284" fill="#003366" font-family="monospace">MOT_SLEEP</text>
+<text x="30" y="300" fill="#444">13</text>
+<text x="70" y="300">IO19</text>
+<text x="210" y="300" fill="#003366" font-family="monospace">USB_DN</text>
+<text x="30" y="316" fill="#444">14</text>
+<text x="70" y="316">IO20</text>
+<text x="210" y="316" fill="#003366" font-family="monospace">USB_DP</text>
+<text x="30" y="332" fill="#444">15</text>
+<text x="70" y="332">IO3</text>
+<text x="210" y="332" fill="#a00" font-family="monospace">no connect</text>
+<text x="30" y="348" fill="#444">16</text>
+<text x="70" y="348">IO46</text>
+<text x="210" y="348" fill="#a00" font-family="monospace">no connect</text>
+<text x="30" y="364" fill="#444">17</text>
+<text x="70" y="364">IO9</text>
+<text x="210" y="364" fill="#003366" font-family="monospace">VBAT_SENSE</text>
+<text x="30" y="380" fill="#444">18</text>
+<text x="70" y="380">IO10</text>
+<text x="210" y="380" fill="#003366" font-family="monospace">CAM_D0</text>
+<text x="30" y="396" fill="#444">19</text>
+<text x="70" y="396">IO11</text>
+<text x="210" y="396" fill="#003366" font-family="monospace">CAM_D1</text>
+<text x="30" y="412" fill="#444">20</text>
+<text x="70" y="412">IO12</text>
+<text x="210" y="412" fill="#003366" font-family="monospace">CAM_D2</text>
+<text x="30" y="428" fill="#444">21</text>
+<text x="70" y="428">IO13</text>
+<text x="210" y="428" fill="#003366" font-family="monospace">CAM_D3</text>
+<text x="30" y="444" fill="#444">22</text>
+<text x="70" y="444">IO14</text>
+<text x="210" y="444" fill="#003366" font-family="monospace">CAM_D4</text>
+<text x="30" y="460" fill="#444">23</text>
+<text x="70" y="460">IO21</text>
+<text x="210" y="460" fill="#003366" font-family="monospace">CAM_D5</text>
+<text x="30" y="476" fill="#444">24</text>
+<text x="70" y="476">IO47</text>
+<text x="210" y="476" fill="#003366" font-family="monospace">CAM_D6</text>
+<text x="30" y="492" fill="#444">25</text>
+<text x="70" y="492">IO48</text>
+<text x="210" y="492" fill="#003366" font-family="monospace">CAM_D7</text>
+<text x="30" y="508" fill="#444">26</text>
+<text x="70" y="508">IO45</text>
+<text x="210" y="508" fill="#a00" font-family="monospace">no connect</text>
+<text x="30" y="524" fill="#444">27</text>
+<text x="70" y="524">IO0</text>
+<text x="210" y="524" fill="#003366" font-family="monospace">BOOT</text>
+<text x="30" y="540" fill="#444">28</text>
+<text x="70" y="540">IO35</text>
+<text x="210" y="540" fill="#a00" font-family="monospace">no connect</text>
+<text x="30" y="556" fill="#444">29</text>
+<text x="70" y="556">IO36</text>
+<text x="210" y="556" fill="#a00" font-family="monospace">no connect</text>
+<text x="30" y="572" fill="#444">30</text>
+<text x="70" y="572">IO37</text>
+<text x="210" y="572" fill="#a00" font-family="monospace">no connect</text>
+<text x="30" y="588" fill="#444">31</text>
+<text x="70" y="588">IO38</text>
+<text x="210" y="588" fill="#003366" font-family="monospace">CAM_XCLK</text>
+<text x="30" y="604" fill="#444">32</text>
+<text x="70" y="604">IO39</text>
+<text x="210" y="604" fill="#003366" font-family="monospace">CAM_PCLK</text>
+<text x="30" y="620" fill="#444">33</text>
+<text x="70" y="620">IO40</text>
+<text x="210" y="620" fill="#003366" font-family="monospace">CAM_VSYNC</text>
+<text x="30" y="636" fill="#444">34</text>
+<text x="70" y="636">IO41</text>
+<text x="210" y="636" fill="#003366" font-family="monospace">CAM_HREF</text>
+<text x="30" y="652" fill="#444">35</text>
+<text x="70" y="652">IO42</text>
+<text x="210" y="652" fill="#003366" font-family="monospace">MOT_FAULT</text>
+<text x="30" y="668" fill="#444">36</text>
+<text x="70" y="668">RXD0</text>
+<text x="210" y="668" fill="#003366" font-family="monospace">UART_RX</text>
+<text x="30" y="684" fill="#444">37</text>
+<text x="70" y="684">TXD0</text>
+<text x="210" y="684" fill="#003366" font-family="monospace">UART_TX</text>
+<text x="30" y="700" fill="#444">38</text>
+<text x="70" y="700">IO2</text>
+<text x="210" y="700" fill="#003366" font-family="monospace">CAM_SIOC</text>
+<text x="30" y="716" fill="#444">39</text>
+<text x="70" y="716">IO1</text>
+<text x="210" y="716" fill="#003366" font-family="monospace">CAM_SIOD</text>
+<text x="30" y="732" fill="#444">40</text>
+<text x="70" y="732">GND</text>
+<text x="210" y="732" fill="#003366" font-family="monospace">GND</text>
+<text x="30" y="748" fill="#444">41</text>
+<text x="70" y="748">EPAD</text>
+<text x="210" y="748" fill="#003366" font-family="monospace">GND</text>
+<rect x="480" y="70" width="430" height="306" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="488" y="90" font-weight="bold" font-size="14">U2  DRV8833PWPR</text>
+<text x="490" y="108" fill="#444">1</text>
+<text x="530" y="108">nSLEEP</text>
+<text x="670" y="108" fill="#003366" font-family="monospace">MOT_SLEEP</text>
+<text x="490" y="124" fill="#444">2</text>
+<text x="530" y="124">AOUT1</text>
+<text x="670" y="124" fill="#003366" font-family="monospace">MOT_L_A</text>
+<text x="490" y="140" fill="#444">3</text>
+<text x="530" y="140">AISEN</text>
+<text x="670" y="140" fill="#003366" font-family="monospace">GND</text>
+<text x="490" y="156" fill="#444">4</text>
+<text x="530" y="156">AOUT2</text>
+<text x="670" y="156" fill="#003366" font-family="monospace">MOT_L_B</text>
+<text x="490" y="172" fill="#444">5</text>
+<text x="530" y="172">BOUT2</text>
+<text x="670" y="172" fill="#003366" font-family="monospace">MOT_R_B</text>
+<text x="490" y="188" fill="#444">6</text>
+<text x="530" y="188">BISEN</text>
+<text x="670" y="188" fill="#003366" font-family="monospace">GND</text>
+<text x="490" y="204" fill="#444">7</text>
+<text x="530" y="204">BOUT1</text>
+<text x="670" y="204" fill="#003366" font-family="monospace">MOT_R_A</text>
+<text x="490" y="220" fill="#444">8</text>
+<text x="530" y="220">nFAULT</text>
+<text x="670" y="220" fill="#003366" font-family="monospace">MOT_FAULT</text>
+<text x="490" y="236" fill="#444">9</text>
+<text x="530" y="236">BIN1</text>
+<text x="670" y="236" fill="#003366" font-family="monospace">MOT_R_FWD</text>
+<text x="490" y="252" fill="#444">10</text>
+<text x="530" y="252">BIN2</text>
+<text x="670" y="252" fill="#003366" font-family="monospace">MOT_R_REV</text>
+<text x="490" y="268" fill="#444">11</text>
+<text x="530" y="268">AIN2</text>
+<text x="670" y="268" fill="#003366" font-family="monospace">MOT_L_REV</text>
+<text x="490" y="284" fill="#444">12</text>
+<text x="530" y="284">AIN1</text>
+<text x="670" y="284" fill="#003366" font-family="monospace">MOT_L_FWD</text>
+<text x="490" y="300" fill="#444">13</text>
+<text x="530" y="300">GND</text>
+<text x="670" y="300" fill="#003366" font-family="monospace">GND</text>
+<text x="490" y="316" fill="#444">14</text>
+<text x="530" y="316">VINT</text>
+<text x="670" y="316" fill="#003366" font-family="monospace">VINT</text>
+<text x="490" y="332" fill="#444">15</text>
+<text x="530" y="332">VM</text>
+<text x="670" y="332" fill="#003366" font-family="monospace">VBAT_SW</text>
+<text x="490" y="348" fill="#444">16</text>
+<text x="530" y="348">VCP</text>
+<text x="670" y="348" fill="#003366" font-family="monospace">VCP</text>
+<text x="490" y="364" fill="#444">17</text>
+<text x="530" y="364">EPAD</text>
+<text x="670" y="364" fill="#003366" font-family="monospace">GND</text>
+<rect x="480" y="390" width="430" height="178" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="488" y="410" font-weight="bold" font-size="14">U4  TP4056-42-ESOP8</text>
+<text x="490" y="428" fill="#444">1</text>
+<text x="530" y="428">TEMP</text>
+<text x="670" y="428" fill="#003366" font-family="monospace">GND</text>
+<text x="490" y="444" fill="#444">2</text>
+<text x="530" y="444">PROG</text>
+<text x="670" y="444" fill="#003366" font-family="monospace">PROG</text>
+<text x="490" y="460" fill="#444">3</text>
+<text x="530" y="460">GND</text>
+<text x="670" y="460" fill="#003366" font-family="monospace">GND</text>
+<text x="490" y="476" fill="#444">4</text>
+<text x="530" y="476">VCC</text>
+<text x="670" y="476" fill="#003366" font-family="monospace">VBUS</text>
+<text x="490" y="492" fill="#444">5</text>
+<text x="530" y="492">BAT</text>
+<text x="670" y="492" fill="#003366" font-family="monospace">VBAT</text>
+<text x="490" y="508" fill="#444">6</text>
+<text x="530" y="508">STDBY</text>
+<text x="670" y="508" fill="#003366" font-family="monospace">CHG_STDBY</text>
+<text x="490" y="524" fill="#444">7</text>
+<text x="530" y="524">CHRG</text>
+<text x="670" y="524" fill="#003366" font-family="monospace">CHG_CHRG</text>
+<text x="490" y="540" fill="#444">8</text>
+<text x="530" y="540">CE</text>
+<text x="670" y="540" fill="#003366" font-family="monospace">VBUS</text>
+<text x="490" y="556" fill="#444">9</text>
+<text x="530" y="556">EPAD</text>
+<text x="670" y="556" fill="#003366" font-family="monospace">GND</text>
+<rect x="940" y="70" width="430" height="114" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="948" y="90" font-weight="bold" font-size="14">U3  AP2112K-3.3TRG1</text>
+<text x="950" y="108" fill="#444">1</text>
+<text x="990" y="108">VIN</text>
+<text x="1130" y="108" fill="#003366" font-family="monospace">VBAT_SW</text>
+<text x="950" y="124" fill="#444">2</text>
+<text x="990" y="124">GND</text>
+<text x="1130" y="124" fill="#003366" font-family="monospace">GND</text>
+<text x="950" y="140" fill="#444">3</text>
+<text x="990" y="140">EN</text>
+<text x="1130" y="140" fill="#003366" font-family="monospace">VBAT_SW</text>
+<text x="950" y="156" fill="#444">4</text>
+<text x="990" y="156">NC</text>
+<text x="1130" y="156" fill="#a00" font-family="monospace">no connect</text>
+<text x="950" y="172" fill="#444">5</text>
+<text x="990" y="172">VOUT</text>
+<text x="1130" y="172" fill="#003366" font-family="monospace">+3V3</text>
+<rect x="940" y="198" width="430" height="130" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="948" y="218" font-weight="bold" font-size="14">U5  USBLC6-2SC6</text>
+<text x="950" y="236" fill="#444">1</text>
+<text x="990" y="236">IO1</text>
+<text x="1130" y="236" fill="#003366" font-family="monospace">USB_DP</text>
+<text x="950" y="252" fill="#444">2</text>
+<text x="990" y="252">GND</text>
+<text x="1130" y="252" fill="#003366" font-family="monospace">GND</text>
+<text x="950" y="268" fill="#444">3</text>
+<text x="990" y="268">IO2</text>
+<text x="1130" y="268" fill="#003366" font-family="monospace">USB_DN</text>
+<text x="950" y="284" fill="#444">4</text>
+<text x="990" y="284">IO2</text>
+<text x="1130" y="284" fill="#003366" font-family="monospace">USB_DN</text>
+<text x="950" y="300" fill="#444">5</text>
+<text x="990" y="300">VBUS</text>
+<text x="1130" y="300" fill="#003366" font-family="monospace">VBUS</text>
+<text x="950" y="316" fill="#444">6</text>
+<text x="990" y="316">IO1</text>
+<text x="1130" y="316" fill="#003366" font-family="monospace">USB_DP</text>
+<rect x="940" y="342" width="430" height="146" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="948" y="362" font-weight="bold" font-size="14">J1  USB-C 16P</text>
+<text x="950" y="380">VBUS</text>
+<text x="1130" y="380" fill="#003366" font-family="monospace">VBUS</text>
+<text x="950" y="396">GND</text>
+<text x="1130" y="396" fill="#003366" font-family="monospace">GND</text>
+<text x="950" y="412">CC1</text>
+<text x="1130" y="412" fill="#003366" font-family="monospace">USB_CC1</text>
+<text x="950" y="428">CC2</text>
+<text x="1130" y="428" fill="#003366" font-family="monospace">USB_CC2</text>
+<text x="950" y="444" fill="#444">DP</text>
+<text x="990" y="444">D+</text>
+<text x="1130" y="444" fill="#003366" font-family="monospace">USB_DP</text>
+<text x="950" y="460" fill="#444">DN</text>
+<text x="990" y="460">D-</text>
+<text x="1130" y="460" fill="#003366" font-family="monospace">USB_DN</text>
+<text x="950" y="476">SHELL</text>
+<text x="1130" y="476" fill="#003366" font-family="monospace">GND</text>
+<rect x="20" y="774" width="430" height="322" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="28" y="794" font-weight="bold" font-size="14">J2  FPC 24P 0.5mm (camera)</text>
+<text x="30" y="812">CAM_3V3</text>
+<text x="210" y="812" fill="#003366" font-family="monospace">+3V3</text>
+<text x="30" y="828">GND</text>
+<text x="210" y="828" fill="#003366" font-family="monospace">GND</text>
+<text x="30" y="844">CAM_SIOC</text>
+<text x="210" y="844" fill="#003366" font-family="monospace">CAM_SIOC</text>
+<text x="30" y="860">CAM_SIOD</text>
+<text x="210" y="860" fill="#003366" font-family="monospace">CAM_SIOD</text>
+<text x="30" y="876">CAM_XCLK</text>
+<text x="210" y="876" fill="#003366" font-family="monospace">CAM_XCLK</text>
+<text x="30" y="892">CAM_PCLK</text>
+<text x="210" y="892" fill="#003366" font-family="monospace">CAM_PCLK</text>
+<text x="30" y="908">CAM_VSYNC</text>
+<text x="210" y="908" fill="#003366" font-family="monospace">CAM_VSYNC</text>
+<text x="30" y="924">CAM_HREF</text>
+<text x="210" y="924" fill="#003366" font-family="monospace">CAM_HREF</text>
+<text x="30" y="940">CAM_D0</text>
+<text x="210" y="940" fill="#003366" font-family="monospace">CAM_D0</text>
+<text x="30" y="956">CAM_D1</text>
+<text x="210" y="956" fill="#003366" font-family="monospace">CAM_D1</text>
+<text x="30" y="972">CAM_D2</text>
+<text x="210" y="972" fill="#003366" font-family="monospace">CAM_D2</text>
+<text x="30" y="988">CAM_D3</text>
+<text x="210" y="988" fill="#003366" font-family="monospace">CAM_D3</text>
+<text x="30" y="1004">CAM_D4</text>
+<text x="210" y="1004" fill="#003366" font-family="monospace">CAM_D4</text>
+<text x="30" y="1020">CAM_D5</text>
+<text x="210" y="1020" fill="#003366" font-family="monospace">CAM_D5</text>
+<text x="30" y="1036">CAM_D6</text>
+<text x="210" y="1036" fill="#003366" font-family="monospace">CAM_D6</text>
+<text x="30" y="1052">CAM_D7</text>
+<text x="210" y="1052" fill="#003366" font-family="monospace">CAM_D7</text>
+<text x="30" y="1068">CAM_PWDN</text>
+<text x="210" y="1068" fill="#003366" font-family="monospace">CAM_PWDN</text>
+<text x="30" y="1084">CAM_RESET</text>
+<text x="210" y="1084" fill="#003366" font-family="monospace">CAM_RESET</text>
+<rect x="480" y="582" width="430" height="66" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="488" y="602" font-weight="bold" font-size="14">J3  JST-PH 2P battery</text>
+<text x="490" y="620" fill="#444">1</text>
+<text x="530" y="620">BAT+</text>
+<text x="670" y="620" fill="#003366" font-family="monospace">VBAT</text>
+<text x="490" y="636" fill="#444">2</text>
+<text x="530" y="636">BAT-</text>
+<text x="670" y="636" fill="#003366" font-family="monospace">GND</text>
+<rect x="940" y="502" width="430" height="98" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="948" y="522" font-weight="bold" font-size="14">J6  VL53L1X ToF breakout</text>
+<text x="950" y="540" fill="#444">1</text>
+<text x="990" y="540">VCC</text>
+<text x="1130" y="540" fill="#003366" font-family="monospace">+3V3</text>
+<text x="950" y="556" fill="#444">2</text>
+<text x="990" y="556">GND</text>
+<text x="1130" y="556" fill="#003366" font-family="monospace">GND</text>
+<text x="950" y="572" fill="#444">3</text>
+<text x="990" y="572">SCL</text>
+<text x="1130" y="572" fill="#003366" font-family="monospace">I2C_SCL</text>
+<text x="950" y="588" fill="#444">4</text>
+<text x="990" y="588">SDA</text>
+<text x="1130" y="588" fill="#003366" font-family="monospace">I2C_SDA</text>
+<rect x="940" y="614" width="430" height="98" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="948" y="634" font-weight="bold" font-size="14">J7  MPU6050 breakout</text>
+<text x="950" y="652" fill="#444">1</text>
+<text x="990" y="652">VCC</text>
+<text x="1130" y="652" fill="#003366" font-family="monospace">+3V3</text>
+<text x="950" y="668" fill="#444">2</text>
+<text x="990" y="668">GND</text>
+<text x="1130" y="668" fill="#003366" font-family="monospace">GND</text>
+<text x="950" y="684" fill="#444">3</text>
+<text x="990" y="684">SCL</text>
+<text x="1130" y="684" fill="#003366" font-family="monospace">I2C_SCL</text>
+<text x="950" y="700" fill="#444">4</text>
+<text x="990" y="700">SDA</text>
+<text x="1130" y="700" fill="#003366" font-family="monospace">I2C_SDA</text>
+<rect x="480" y="662" width="430" height="98" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="488" y="682" font-weight="bold" font-size="14">J8  DEBUG UART</text>
+<text x="490" y="700" fill="#444">1</text>
+<text x="530" y="700">3V3</text>
+<text x="670" y="700" fill="#003366" font-family="monospace">+3V3</text>
+<text x="490" y="716" fill="#444">2</text>
+<text x="530" y="716">GND</text>
+<text x="670" y="716" fill="#003366" font-family="monospace">GND</text>
+<text x="490" y="732" fill="#444">3</text>
+<text x="530" y="732">TX</text>
+<text x="670" y="732" fill="#003366" font-family="monospace">UART_TX</text>
+<text x="490" y="748" fill="#444">4</text>
+<text x="530" y="748">RX</text>
+<text x="670" y="748" fill="#003366" font-family="monospace">UART_RX</text>
+<rect x="480" y="774" width="430" height="82" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="488" y="794" font-weight="bold" font-size="14">Q1  AO3400A N-MOSFET</text>
+<text x="490" y="812" fill="#444">1</text>
+<text x="530" y="812">G</text>
+<text x="670" y="812" fill="#003366" font-family="monospace">IR_EN</text>
+<text x="490" y="828" fill="#444">2</text>
+<text x="530" y="828">S</text>
+<text x="670" y="828" fill="#003366" font-family="monospace">GND</text>
+<text x="490" y="844" fill="#444">3</text>
+<text x="530" y="844">D</text>
+<text x="670" y="844" fill="#003366" font-family="monospace">IR_SINK</text>
+<rect x="940" y="726" width="430" height="82" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="948" y="746" font-weight="bold" font-size="14">SW1  Slide switch SPDT</text>
+<text x="950" y="764" fill="#444">1</text>
+<text x="990" y="764">A</text>
+<text x="1130" y="764" fill="#003366" font-family="monospace">VBAT</text>
+<text x="950" y="780" fill="#444">2</text>
+<text x="990" y="780">COM</text>
+<text x="1130" y="780" fill="#003366" font-family="monospace">VBAT_SW</text>
+<text x="950" y="796" fill="#444">3</text>
+<text x="990" y="796">B</text>
+<text x="1130" y="796" fill="#a00" font-family="monospace">no connect</text>
+<rect x="940" y="822" width="430" height="66" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="948" y="842" font-weight="bold" font-size="14">SW2  Tact EN/RESET</text>
+<text x="950" y="860">1</text>
+<text x="1130" y="860" fill="#003366" font-family="monospace">EN</text>
+<text x="950" y="876">2</text>
+<text x="1130" y="876" fill="#003366" font-family="monospace">GND</text>
+<rect x="940" y="902" width="430" height="66" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="948" y="922" font-weight="bold" font-size="14">SW3  Tact BOOT</text>
+<text x="950" y="940">1</text>
+<text x="1130" y="940" fill="#003366" font-family="monospace">BOOT</text>
+<text x="950" y="956">2</text>
+<text x="1130" y="956" fill="#003366" font-family="monospace">GND</text>
+<rect x="480" y="870" width="430" height="66" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="488" y="890" font-weight="bold" font-size="14">PL  Left motor pads</text>
+<text x="490" y="908" fill="#444">1</text>
+<text x="530" y="908">A</text>
+<text x="670" y="908" fill="#003366" font-family="monospace">MOT_L_A</text>
+<text x="490" y="924" fill="#444">2</text>
+<text x="530" y="924">B</text>
+<text x="670" y="924" fill="#003366" font-family="monospace">MOT_L_B</text>
+<rect x="480" y="950" width="430" height="66" fill="#f7f9fc" stroke="#345" rx="4"/>
+<text x="488" y="970" font-weight="bold" font-size="14">PR  Right motor pads</text>
+<text x="490" y="988" fill="#444">1</text>
+<text x="530" y="988">A</text>
+<text x="670" y="988" fill="#003366" font-family="monospace">MOT_R_A</text>
+<text x="490" y="1004" fill="#444">2</text>
+<text x="530" y="1004">B</text>
+<text x="670" y="1004" fill="#003366" font-family="monospace">MOT_R_B</text>
+<text x="20" y="1118" font-weight="bold" font-size="14">Passives / LEDs  (ref value : net1 - net2)</text>
+<text x="20" y="1138" font-family="monospace">D1  LED red 0603 CHG_LED1A - CHG_CHRG</text>
+<text x="480" y="1138" font-family="monospace">D2  LED green 0603 CHG_LED2A - CHG_STDBY</text>
+<text x="940" y="1138" font-family="monospace">D3  LED blue 0603 LED_STATA - GND</text>
+<text x="20" y="1154" font-family="monospace">D4  IR LED 850nm IR_A1 - IR_SINK</text>
+<text x="480" y="1154" font-family="monospace">D5  IR LED 850nm IR_A2 - IR_SINK</text>
+<text x="940" y="1154" font-family="monospace">R1  10k     +3V3 - EN</text>
+<text x="20" y="1170" font-family="monospace">R2  100k    MOT_SLEEP - GND</text>
+<text x="480" y="1170" font-family="monospace">R3  10k     +3V3 - MOT_FAULT</text>
+<text x="940" y="1170" font-family="monospace">R4  5.6k    PROG - GND</text>
+<text x="20" y="1186" font-family="monospace">R5  5.1k    USB_CC1 - GND</text>
+<text x="480" y="1186" font-family="monospace">R6  5.1k    USB_CC2 - GND</text>
+<text x="940" y="1186" font-family="monospace">R7  1k      VBUS - CHG_LED1A</text>
+<text x="20" y="1202" font-family="monospace">R8  1k      VBUS - CHG_LED2A</text>
+<text x="480" y="1202" font-family="monospace">R9  4.7k    +3V3 - I2C_SCL</text>
+<text x="940" y="1202" font-family="monospace">R10 4.7k    +3V3 - I2C_SDA</text>
+<text x="20" y="1218" font-family="monospace">R11 100k    IR_EN - GND</text>
+<text x="480" y="1218" font-family="monospace">R12 47      VBAT_SW - IR_A1</text>
+<text x="940" y="1218" font-family="monospace">R13 47      VBAT_SW - IR_A2</text>
+<text x="20" y="1234" font-family="monospace">R14 1k      LED_STAT - LED_STATA</text>
+<text x="480" y="1234" font-family="monospace">R15 100k    VBAT_SW - VBAT_SENSE</text>
+<text x="940" y="1234" font-family="monospace">R16 100k    VBAT_SENSE - GND</text>
+<text x="20" y="1250" font-family="monospace">R17 10k     CAM_PWDN - GND</text>
+<text x="480" y="1250" font-family="monospace">R18 10k     +3V3 - CAM_RESET</text>
+<text x="940" y="1250" font-family="monospace">C1  10uF    VBUS - GND</text>
+<text x="20" y="1266" font-family="monospace">C2  10uF    VBAT - GND</text>
+<text x="480" y="1266" font-family="monospace">C3  10uF    VBAT_SW - GND</text>
+<text x="940" y="1266" font-family="monospace">C4  10uF    VBAT_SW - GND</text>
+<text x="20" y="1282" font-family="monospace">C5  100nF   VBAT_SW - GND</text>
+<text x="480" y="1282" font-family="monospace">C6  10nF    VCP - VBAT_SW</text>
+<text x="940" y="1282" font-family="monospace">C7  2.2uF   VINT - GND</text>
+<text x="20" y="1298" font-family="monospace">C8  10uF    +3V3 - GND</text>
+<text x="480" y="1298" font-family="monospace">C9  10uF    +3V3 - GND</text>
+<text x="940" y="1298" font-family="monospace">C10 100nF   +3V3 - GND</text>
+<text x="20" y="1314" font-family="monospace">C11 1uF     EN - GND</text>
+<text x="480" y="1314" font-family="monospace">C12 100nF   VBAT_SENSE - GND</text>
+<text x="940" y="1314" font-family="monospace">C13 10uF    +3V3 - GND</text>
+<text x="20" y="1330" font-family="monospace">C14 100nF   +3V3 - GND</text>
+</svg>

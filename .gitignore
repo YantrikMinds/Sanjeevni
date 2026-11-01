@@ -1,0 +1,17 @@
+# Security & Credentials
+server.key
+server.crt
+*.pem
+
+# Runtime & Logs
+*.log
+server.log
+__pycache__/
+*.py[cod]
+
+# Local Databases & Scratch
+sanjeevni.db
+*.sqlite
+*.sqlite3
+.DS_Store
+Thumbs.db

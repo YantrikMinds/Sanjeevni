@@ -1,0 +1,23 @@
+Comment,Designator,Footprint,LCSC Part #,Quantity,Description
+ESP32-S3-WROOM-1-N8R8,U1,MODULE_ESP32-S3-WROOM-1,C2913200,1,Dual-Core 240MHz Wi-Fi+BLE 5.0 SoC 8MB Flash 8MB PSRAM
+DRV8833PWPR,U2,TSSOP-16-EP_4.4x5.0mm,C50506,1,Dual H-Bridge Motor Driver 1.5A 2.7V-10.8V
+AMS1117-3.3,U3,SOT-223-3_6.5x3.5mm,C6186,1,3.3V 1A Low Dropout Linear Voltage Regulator
+TP4056,U4,SOP-8-EP,C16581,1,1A Standalone Linear Li-lon Battery Charger with Thermal Regulation
+TYPE-C-16PIN,J1,USB-C-16P-SMD,C2765186,1,USB Type-C Receptacle 16-Pin SMT with 5.1k CC pull-down
+FPC-24P-0.5mm,J2,FPC-0.5mm-24P-Bottom,C262657,1,24-Pin 0.5mm Pitch Flexible Flat Cable Connector for OV2640 Camera
+JST-PH-2P,J3,CONN-TH_2P-P2.00mm,C2957474,1,2-Pin 2.0mm JST-PH Battery Connector (3.7V LiPo)
+SCREW-TERM-2P,J4,TB006-508-02BE,C471800,1,Left Motor Screw Terminal Header (OUT1/OUT2)
+SCREW-TERM-2P,J5,TB006-508-02BE,C471800,1,Right Motor Screw Terminal Header (OUT3/OUT4)
+HEADER-4P-2.54mm,J6,HDR-TH_4P-P2.54mm,C2883742,1,VL53L1X ToF Laser Distance Sensor I2C Port (VCC/GND/SCL/SDA)
+HEADER-4P-2.54mm,J7,HDR-TH_4P-P2.54mm,C2883742,1,MPU6050 6-Axis Gyro/Accelerometer I2C Port (VCC/GND/SCL/SDA)
+10uF 16V,C1 C2 C3 C4,C0805,C15850,4,Ceramic Decoupling Capacitor 10uF 16V X5R
+0.1uF 50V,C5 C6 C7 C8,C0603,C14663,4,High-Frequency Bypass Capacitor 100nF 50V X7R
+0.01uF 50V,C9,C0603,C14665,1,DRV8833 Charge Pump Capacitor 10nF 50V
+10k 1%,R1 R2 R3,R0603,C25804,3,Pull-up Resistor for EN, nSLEEP, nFAULT
+1.2k 1%,R4,R0603,C22775,1,TP4056 PROG Resistor (sets 1000mA charge current)
+5.1k 1%,R5 R6,R0603,C23186,2,USB-C Configuration Channel CC1/CC2 5.1k Resistors
+RED-LED,D1,LED0603_RED,C2286,1,TP4056 Charging Indicator LED
+GREEN-LED,D2,LED0603_GREEN,C2290,1,TP4056 Standby / Full Charge Indicator LED
+SS14-Schottky,D3,SMA_DO-214AC,C2241,1,1A 40V Reverse Polarity Protection Diode
+SW-SPDT-Slide,SW1,SW-SMD_3P,C2902344,1,Miniature Slide Power Switch (ON/OFF)
+TACT-SWITCH-2P,SW2 SW3,KEY-SMD_4x4mm,C318884,2,Reset (EN) and Boot (IO0) Push Buttons

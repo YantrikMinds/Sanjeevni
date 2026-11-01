@@ -1,0 +1,48 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 8f24b391-7f92-4f05-8bc2-a1f9a0c20140)
+
+  (paper "A3")
+
+  (title_block
+    (title "SANJEEVNI NANO ROVER AIO BOARD v1.0")
+    (date "2026-11-01")
+    (rev "v1.0")
+    (company "Team Aprajit - Disaster Robotics")
+    (comment 1 "Ultra-compact 46mm x 48mm Rubble Scout Mainboard")
+    (comment 2 "ESP32-S3 Dual Core + DRV8833 Dual H-Bridge + OV2640 Camera")
+  )
+
+  (lib_symbols
+    (symbol "Device:C" (pin_numbers hide) (pin_names (offset 0.254)) (in_bom yes) (on_board yes)
+      (property "Reference" "C" (at 0.635 2.54 0) (effects (font (size 1.27 1.27))))
+      (property "Value" "C" (at 0.635 -2.54 0) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+      (property "Datasheet" "~" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+      (pin passive line (at 0 3.81 270) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+      (pin passive line (at 0 -3.81 90) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+    )
+    (symbol "Device:R" (pin_numbers hide) (pin_names (offset 0)) (in_bom yes) (on_board yes)
+      (property "Reference" "R" (at 2.032 0 90) (effects (font (size 1.27 1.27))))
+      (property "Value" "R" (at 0 0 90) (effects (font (size 1.27 1.27))))
+      (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+      (property "Datasheet" "~" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+      (pin passive line (at 0 3.81 270) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "1" (effects (font (size 1.27 1.27)))))
+      (pin passive line (at 0 -3.81 90) (length 2.54) (name "~" (effects (font (size 1.27 1.27)))) (number "2" (effects (font (size 1.27 1.27)))))
+    )
+  )
+
+  (wire (pts (xy 50.8 50.8) (xy 63.5 50.8))
+    (stroke (width 0) (type default))
+    (uuid 12345678-0001-0001-0001-000000000001)
+  )
+
+  (label "+3V3" (at 63.5 50.8 0) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 12345678-0001-0001-0001-000000000002)
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)
