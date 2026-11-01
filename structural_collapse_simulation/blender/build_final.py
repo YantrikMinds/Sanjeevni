@@ -20,5 +20,5 @@ bpy.ops.ptcache.bake_all(bake=True)
 print('baked', sc.rigidbody_world.point_cache.is_baked, round(time.time() - t0), 's')
 run('stage4_5_finish.py', {'__name__': '__main__', 'env': g3['env'], 'mk': g3['mk']})
 bpy.ops.wm.save_as_mainfile(filepath=str(P.parent / 'sanjeevni_final.blend'))
-run('add_rover.py', {'__name__': '__main__', '__file__': str(P / 'add_rover.py')})   # RIIS rover on the keyframed path; saves sanjeevni_town.blend
+run('add_rover.py', {'__name__': '__main__', '__file__': str(P / 'add_rover.py')})   # RIIS rover on the keyframed path; saves sanjeevni.blend
 print('SAVED', round(time.time() - t0), 's')
