@@ -1,8 +1,8 @@
 # Add 4 intact copies of the hero building (windows, balconies, AC, stair core) along the south side of the street.
-# Usage: blender -b sanjeevni_rover.blend -P add_town.py   ->  sanjeevni_town.blend (source file untouched). Also run by build_final.py before stage 2.
+# Usage: blender -b sanjeevni_rover.blend -P add_town.py   ->  sanjeevni.blend (source file untouched). Also run by build_final.py before stage 2.
 import bpy, pathlib, random
 P = pathlib.Path(__file__).parent
-OUT = P.parent / 'sanjeevni_town.blend'
+OUT = P.parent / 'sanjeevni.blend'
 XS = (-51, -27, 27, 51)   # hero is x -9..9; the old Town_6/Town_7 boxes sit on these spots and are removed
 
 src = (P / 'stage1_scene.py').read_text(encoding='utf-8').split("if RUN['scene']")[0]   # definitions only, don't rebuild the scene

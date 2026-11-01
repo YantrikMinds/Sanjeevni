@@ -5,7 +5,7 @@ Blender 5.1 pipeline for the Sanjeevni demo shot: a 5-building street collapses 
 ## Contents
 | Path | Purpose |
 |---|---|
-| `sanjeevni_town.blend` | Final scene: 5 buildings, baked physics (frames 1-336), rover, dust, camera, lights |
+| `sanjeevni.blend` | Final scene: 5 buildings, baked physics (frames 1-336), rover, dust, camera, lights |
 | `blender/stage1_scene.py` | Night street, town, hero building with separate stair core (procedural PBR, no textures) |
 | `blender/stage2_rig.py` | Voronoi fracture, rigid-body chunks, bottom-up breaking constraints, gravel |
 | `blender/stage3_quake.py` | Quake envelope and camera shake |
@@ -25,6 +25,6 @@ Blender 5.1 pipeline for the Sanjeevni demo shot: a 5-building street collapses 
 ```
 blender -b --factory-startup -P blender/build_final.py
 ```
-Open `sanjeevni_town.blend`, press Space on frame 1 in Solid or Material Preview. Re-bake via Physics > Rigid Body World > Bake if the cache is invalid. Full rebuild writes `sanjeevni_final.blend` and `sanjeevni_town.blend` into the parent folder; the 5-building bake takes roughly 20 minutes.
+Open `sanjeevni.blend`, press Space on frame 1 in Solid or Material Preview. Re-bake via Physics > Rigid Body World > Bake if the cache is invalid. Full rebuild writes `sanjeevni_final.blend` and `sanjeevni.blend` into the parent folder; the 5-building bake takes roughly 20 minutes.
 
 Known limits: glass panes in rubble render as bright squares; scripts assume Blender 5.1.

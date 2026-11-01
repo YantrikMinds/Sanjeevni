@@ -2,7 +2,7 @@
 # The GLB is Z-up but Blender's importer treats it as Y-up, so the model is rotated -90 deg about X to stand upright.
 import bpy, math, pathlib
 GLB = str(pathlib.Path(__file__).resolve().parent.parent / 'assets' / 'riis_rover_full_build.glb')
-OUT = pathlib.Path(bpy.data.filepath).parent / 'sanjeevni_town.blend'
+OUT = pathlib.Path(bpy.data.filepath).parent / 'sanjeevni.blend'
 S = 0.3   # model is 2.0 x 1.2 x 1.5 m at S=1: 0.3 -> 0.6 x 0.36 x 0.45 m, small enough for the gaps between slabs
 rover = bpy.data.objects['Rover']
 before = set(bpy.data.objects)
